@@ -30,7 +30,9 @@ Mapping.prototype.setPosition = function (){
       function(position){
         me.coords = position.coords;
         me.moveTo(position.coords);
-      }, function(){
+        L.marker([position.coords.latitude,position.coords.longitude],{title:"You are Here",draggable:false}).addTo(me.map).bindPopup("You are here").openPopup();
+      },
+      function(){
         alert("your browser doesn't support geolocation, defaulting to London");
         this.coords = {
           latitude:51.505,
@@ -44,10 +46,10 @@ Mapping.prototype.setPosition = function (){
 };
 
 Mapping.prototype.moveTo = function (coords){
-  this.map.setView([coords.latitude,coords.longitude]);
+  this.map.panTo([coords.latitude,coords.longitude]);
 };
 
 Mapping.prototype.showSomethingAtPosition = function (position, text){
   //L.marker([51.5, -0.09]).addTo(map).bindPopup('manual popup');
-  L.marker([position.latitude,position.longitude]).addTo(map).bindPopup(text);
+  L.marker([position.latitude,position.longitude],{draggable:false}).addTo(this.map).bindPopup(text);
 };
