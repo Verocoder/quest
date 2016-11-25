@@ -24,4 +24,11 @@
     border: 2px solid white; }
     .jumbotron .lang-logo img {
       max-width: 100%; }
-
+.img-responsive-header{
+  max-width: auto;
+  height: 100%;
+  display: block;
+}
+.navbar{
+  color: gray
+}
