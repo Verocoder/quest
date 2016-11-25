@@ -27,7 +27,9 @@ Mapping.prototype.setPosition = function (){
       function(position){
         me.coords = position.coords;
         me.moveTo(position.coords);
-        L.marker([position.coords.latitude,position.coords.longitude],{title:"You are Here",draggable:false}).addTo(me.map).bindPopup("You are here").openPopup();
+        L.markerClusterGroup().clearLayers();
+        me.showSomethingAtPosition(position.coords,"You are here", "You are here");
+        //L.marker([position.coords.latitude,position.coords.longitude],{title:"You are Here",draggable:false}).addTo(me.map).bindPopup("You are here").openPopup();
       },
       function(){
         alert("your browser doesn't support geolocation, defaulting to London");
@@ -46,14 +48,14 @@ Mapping.prototype.moveTo = function (coords){
   this.map.panTo([coords.latitude,coords.longitude]);
 };
 
-Mapping.prototype.showSomethingAtPosition = function (position, text){
+Mapping.prototype.showSomethingAtPosition = function (position, title, text){
   //L.marker([51.5, -0.09]).addTo(map).bindPopup('manual popup');
-  L.marker([position.latitude,position.longitude],{draggable:false}).addTo(this.map).bindPopup(text);
+  L.marker([position.latitude,position.longitude],{draggable:false, title:title}).addTo(this.map).bindPopup(text);
 };
 
 
 Mapping.prototype.requestDiscoveries = function(coords){
-  var url = "/geolookup?lat=" + coords.longitude + "&long=" + coords.longitude + "&distance=5";
+  var url = "/geolookup?lat=" + coords.lat + "&long=" + coords.lng + "&distance=5";
   var me = this;
   $.ajax({
     dataType: "json",
@@ -72,7 +74,8 @@ Mapping.prototype.drawDiscoveries = function (things){
   //   name:"butterfly"
   // }];
   for (var i=0; i<things.length;i++){
-    var thing = things[i];
-    this.showSomethingAtPosition({latitude:thing.lat,longitude:thing.lon},thing.name);
+    var thing = things[i]._source;
+    var text = "<b>" + thing.scientificName + "</b> discovered by " + thing.recordedBy + " in " + thing.year;
+    this.showSomethingAtPosition({latitude:thing.location.lat,longitude:thing.location.lon},thing.scientificName, text);
   }
 };
