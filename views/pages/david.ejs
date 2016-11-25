@@ -3,16 +3,23 @@
   <head>
     <% include ../partials/header.ejs %>
   </head>
-
   <body>
   <% include ../partials/nav.ejs %>
 
-    <h1> david test page </h1>
-    <div id="mapid"></div>
+    <div class="map well" id="mapid"></div>
     <script>
-      mapping.
+      var map = new Mapping("mapid","listid");
+
+      function onMapMove(e) {
+        map.requestDiscoveries(map.map.getCenter());
+      };
+      //listeners
+      map.map.on('moveend', onMapMove);
     </script>
 
+    <div class = "well" id="listid">
+      gonna have some content
+    </div>
     <p>under the map</p>
 
   </body>
