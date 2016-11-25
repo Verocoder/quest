@@ -54,21 +54,22 @@ Mapping.prototype.showSomethingAtPosition = function (position, text){
 
 Mapping.prototype.requestDiscoveries = function(coords){
   var url = "/geolookup?lat=" + coords.longitude + "&long=" + coords.longitude + "&distance=5"
+  var me = this;
   $.ajax({
     dataType: "json",
     url: url,
     data: data,
-    success: drawDiscoveries
+    success: me.drawDiscoveries
   });
 };
 
 Mapping.prototype.drawDiscoveries = function (things){
-  // var things = whatever comes back from calling fraz's API
-  var things = [{
-    lat:51.505,
-    lon:-0.09,
-    name:"butterfly"
-  }];
+  // // var things = whatever comes back from calling fraz's API
+  // var things = [{
+  //   lat:51.505,
+  //   lon:-0.09,
+  //   name:"butterfly"
+  // }];
   for (var i=0; i<things.length;i++){
     var thing = things[i];
     this.showSomethingAtPosition({latitude:thing.lat,longitude:thing.lon},thing.name);

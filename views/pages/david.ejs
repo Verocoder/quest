@@ -11,7 +11,7 @@
       var map = new Mapping("mapid");
 
       function onMapMove(e) {
-        map.drawDiscoveries(map.map.getCenter());
+        map.requestDiscoveries(map.map.getCenter());
       };
       //listeners
       map.map.on('moveend', onMapMove);
