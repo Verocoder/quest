@@ -58,8 +58,9 @@ Mapping.prototype.requestDiscoveries = function(coords){
   $.ajax({
     dataType: "json",
     url: url,
-    data: data,
-    success: me.drawDiscoveries
+    success: function(response){
+      me.drawDiscoveries(response);
+    }
   });
 };
 
