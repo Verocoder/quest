@@ -60,6 +60,7 @@ Mapping.prototype.showSomethingAtPosition = function (position, title, text){
 
 
 Mapping.prototype.requestDiscoveries = function(coords){
+  //rewrite to use geoboxes once fraz has done API
   var url = "/geolookup?lat=" + coords.lat + "&long=" + coords.lng + "&distance=5";
   var me = this;
   $.ajax({
@@ -71,8 +72,9 @@ Mapping.prototype.requestDiscoveries = function(coords){
   });
 };
 Mapping.prototype.clearOut = function (){
-  //this.map.removeLayer(this.markersLayer);
-  $("#"+this.listid).empty();
+  //this.map.removeLayer(this.markersLayer)
+  var listKey = "#"+this.listDiv;
+  $(listKey).empty();
   for (var m; m<this.markers.length;m++){
     this.map.removeLayer(this.markers[m]);
   }
@@ -82,12 +84,15 @@ Mapping.prototype.clearOut = function (){
 
 Mapping.prototype.addThingToList = function (thing){
   // write a jquery call to get the div with the list in and fill it with info
-  $("#"+this.listid).append( "<li class='list-group-item'>" + thing.scientificName +"</li>" );
+  var listKey = "#"+this.listDiv;
+  $(listKey).append( "<li class='list-group-item'> <a href='http://data.nhm.ac.uk/object/"+ thing.occurrenceID + "' target='_blank'>" + thing.scientificName + "</a></li>" );
 };
 
 Mapping.prototype.drawDiscoveries = function (things){
   this.clearOut();
-  $("#"+this.listid).append( "<ul class='list-group'>" );
+  var listKey = "#"+this.listDiv;
+  $(listKey).append( "Discoveries" );
+  $(listKey).append( "<ul class='list-group'>" );
   for (var i=0; i<things.length;i++){
     var thing = things[i]._source;
     var text = "<b>" + thing.scientificName + "</b> discovered by " + thing.recordedBy + " in " + thing.year;
@@ -95,5 +100,5 @@ Mapping.prototype.drawDiscoveries = function (things){
     this.showSomethingAtPosition({latitude:thing.location.lat,longitude:thing.location.lon},thing.scientificName, text);
     this.addThingToList(thing);
   }
-  $("#"+this.listid).append("</ul>");
+  $(listKey).append("</ul>");
 };
