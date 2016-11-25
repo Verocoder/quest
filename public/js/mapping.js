@@ -53,7 +53,7 @@ Mapping.prototype.showSomethingAtPosition = function (position, text){
 
 
 Mapping.prototype.requestDiscoveries = function(coords){
-  var url = "/geolookup?lat=" + coords.longitude + "&long=" + coords.longitude + "&distance=5"
+  var url = "/geolookup?lat=" + coords.longitude + "&long=" + coords.longitude + "&distance=5";
   var me = this;
   $.ajax({
     dataType: "json",
