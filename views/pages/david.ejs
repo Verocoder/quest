@@ -9,6 +9,12 @@
     <div id="mapid">/div>
     <script>
       var map = new Mapping("mapid");
+
+      function onMapMove(e) {
+        map.drawDiscoveries(map.map.getCenter());
+      };
+      //listeners
+      map.map.on('moveend', onMapMove);
     </script>
 
     <p>under the map</p>
