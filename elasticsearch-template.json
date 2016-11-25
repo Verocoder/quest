@@ -1,5 +1,5 @@
 {
-  "template" : "geodata3",
+  "template" : "geodata4",
   "settings" : {
     "index.refresh_interval" : "5s"
   },
