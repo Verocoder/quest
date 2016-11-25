@@ -25,7 +25,7 @@ return client.search({
   type: 'geodata4',
   body: {
 
- "_source": ["location", "genus", "scientificName", "year"],
+ "_source": ["location", "genus", "scientificName", "year", "nhmid", 'catalogNumber', 'recordedBy', 'dynamicProperties'],
     "query": {
         "bool" : {
             "must" : {
