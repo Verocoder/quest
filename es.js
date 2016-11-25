@@ -49,7 +49,7 @@ return client.search({
   type: 'geodata4',
   body: {
 
- "_source": ["location", "genus", "scientificName", "year", "nhmid", 'catalogNumber', 'recordedBy', 'dynamicProperties', 'occurrenceID'],
+ "_source": ["location", "genus", "scientificName", "year", "nhmid", 'catalogNumber', 'recordedBy', 'dynamicProperties', 'occurrenceID', 'nhmid'],
     "query": {
         "bool" : {
             "must" : {
