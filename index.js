@@ -17,6 +17,9 @@ app.get('/nicky', function(request, response) {
   response.render('pages/nicky');
 });
 
+app.get('/david', function(request, response) {
+  response.render('pages/david');
+});
 //app.get('/nicky', function(request, response) {
 //  response.render('pages/nicky');
 //});
