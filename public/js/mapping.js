@@ -1,10 +1,15 @@
 var Mapping = function (mapDiv){
+  //properties
   this.mapDiv = mapDiv;
   this.map = {};
   this.currentCoords = {
     latitude:51.505,
     longitude: -0.09
   };
+  this.markers = [];
+  this.markersLayer = new L.LayerGroup();
+
+  //setupMethods
   this.drawMap();
   this.setPosition();
 
@@ -27,9 +32,7 @@ Mapping.prototype.setPosition = function (){
       function(position){
         me.coords = position.coords;
         me.moveTo(position.coords);
-        L.markerClusterGroup().clearLayers();
         me.showSomethingAtPosition(position.coords,"You are here", "You are here");
-        //L.marker([position.coords.latitude,position.coords.longitude],{title:"You are Here",draggable:false}).addTo(me.map).bindPopup("You are here").openPopup();
       },
       function(){
         alert("your browser doesn't support geolocation, defaulting to London");
@@ -50,7 +53,7 @@ Mapping.prototype.moveTo = function (coords){
 
 Mapping.prototype.showSomethingAtPosition = function (position, title, text){
   //L.marker([51.5, -0.09]).addTo(map).bindPopup('manual popup');
-  L.marker([position.latitude,position.longitude],{draggable:false, title:title}).addTo(this.map).bindPopup(text);
+  this.markers.push(L.marker([position.latitude,position.longitude],{draggable:false, title:title}).addTo(this.map).bindPopup(text));
 };
 
 
@@ -73,6 +76,11 @@ Mapping.prototype.drawDiscoveries = function (things){
   //   lon:-0.09,
   //   name:"butterfly"
   // }];
+  //this.map.removeLayer(this.markersLayer);
+  for (var m; m<this.markers.length;m++){
+    this.map.removeLayer(this.markers[m]);
+  }
+  console.log(this.markers);
   for (var i=0; i<things.length;i++){
     var thing = things[i]._source;
     var text = "<b>" + thing.scientificName + "</b> discovered by " + thing.recordedBy + " in " + thing.year;
