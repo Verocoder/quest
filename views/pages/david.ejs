@@ -6,9 +6,9 @@
   <body>
   <% include ../partials/nav.ejs %>
 
-    <div id="mapid">/div>
+    <div class="well" id="mapid"></div>
     <script>
-      var map = new Mapping("mapid");
+      var map = new Mapping("mapid","listid");
 
       function onMapMove(e) {
         map.requestDiscoveries(map.map.getCenter());
@@ -17,6 +17,9 @@
       map.map.on('moveend', onMapMove);
     </script>
 
+    <div class = "well" id="listid">
+      gonna have some content
+    </div>
     <p>under the map</p>
 
   </body>

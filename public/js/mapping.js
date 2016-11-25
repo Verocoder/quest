@@ -1,7 +1,9 @@
-var Mapping = function (mapDiv){
+var Mapping = function (mapDiv, listDiv){
   //properties
   this.mapDiv = mapDiv;
+  this.listDiv = listDiv;
   this.map = {};
+  this.currentData = [];
   this.currentCoords = {
     latitude:51.505,
     longitude: -0.09
@@ -17,7 +19,7 @@ var Mapping = function (mapDiv){
 
 
 Mapping.prototype.drawMap = function(){
-  this.map = L.map('mapid').setView([this.currentCoords.latitude,this.currentCoords.longitude], 13);
+  this.map = L.map('mapid').setView([this.currentCoords.latitude,this.currentCoords.longitude], 11);
   L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(this.map);
@@ -68,22 +70,30 @@ Mapping.prototype.requestDiscoveries = function(coords){
     }
   });
 };
-
-Mapping.prototype.drawDiscoveries = function (things){
-  // // var things = whatever comes back from calling fraz's API
-  // var things = [{
-  //   lat:51.505,
-  //   lon:-0.09,
-  //   name:"butterfly"
-  // }];
+Mapping.prototype.clearOut = function (){
   //this.map.removeLayer(this.markersLayer);
+  $("#"+this.listid).empty();
   for (var m; m<this.markers.length;m++){
     this.map.removeLayer(this.markers[m]);
   }
   console.log(this.markers);
+  this.currentData = [];
+};
+
+Mapping.prototype.addThingToList = function (thing){
+  // write a jquery call to get the div with the list in and fill it with info
+  $("#"+this.listid).append( "<li class='list-group-item'>" + thing.scientificName +"</li>" );
+};
+
+Mapping.prototype.drawDiscoveries = function (things){
+  this.clearOut();
+  $("#"+this.listid).append( "<ul class='list-group'>" );
   for (var i=0; i<things.length;i++){
     var thing = things[i]._source;
     var text = "<b>" + thing.scientificName + "</b> discovered by " + thing.recordedBy + " in " + thing.year;
+    this.currentData.push(thing);
     this.showSomethingAtPosition({latitude:thing.location.lat,longitude:thing.location.lon},thing.scientificName, text);
+    this.addThingToList(thing);
   }
+  $("#"+this.listid).append("</ul>");
 };
