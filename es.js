@@ -4,6 +4,30 @@ var client = new elasticsearch.Client({
   //log: 'trace'
 });
 module.exports = {
+
+  getimage: function(catalognumber) {
+    return client.search({
+      index: 'imagedata',
+    //  type: 'imagedata',
+      body: {
+
+
+
+          "_source": ["identifier"],
+          "query": {
+                "query_string" : {
+                    "query" : catalognumber
+                }
+            }
+        }
+
+
+
+
+
+
+    });
+  },
 getgeo: function(lat1,long1, distance1, res) {
 
 //   client.ping({
