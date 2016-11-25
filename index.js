@@ -13,8 +13,8 @@ app.get('/', function(request, response) {
   response.render('pages/index');
 });
 
-app.get('/*', function(request, response) {
-  response.render('pages/*');
+app.get('/nicky', function(request, response) {
+  response.render('pages/nicky');
 });
 
 //app.get('/nicky', function(request, response) {
