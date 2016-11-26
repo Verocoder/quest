@@ -12,7 +12,8 @@ module.exports = {
     index: 'geodata4',
     type: 'geodata4',
     body: {
-
+      "_source": ["location", "genus", "scientificName", "year", "nhmid", 'catalogNumber', 'recordedBy', 'dynamicProperties', 'occurrenceID', 'nhmid'],
+       
       "query": {
           "bool" : {
               "must" : {
