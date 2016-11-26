@@ -1,7 +1,8 @@
-var Mapping = function (mapDiv, listDiv){
+var Mapping = function (mapDiv, listDiv, timelineDiv){
   //properties
   this.mapDiv = mapDiv;
   this.listDiv = listDiv;
+  this.timelineDiv = timelineDiv;
   this.map = {};
   this.currentData = [];
   this.currentCoords = {
@@ -60,7 +61,9 @@ Mapping.prototype.requestDiscoveries = function(coords){
 };
 Mapping.prototype.clearOut = function (){
   var listKey = "#"+this.listDiv;
+  var timelineDiv = "#"+this.timelineDiv;
   $(listKey).empty();
+  $(timelineDiv).empty();
   this.map.removeLayer(this.markersLayer);
   this.currentData = [];
   this.markersLayer = new L.FeatureGroup();
@@ -84,5 +87,52 @@ Mapping.prototype.drawDiscoveries = function (things){
     this.addThingToList(thing);
   }
   this.markersLayer.addTo(this.map);
+  this.drawTimeline();
   $(listKey).append("</ul>");
+};
+
+Mapping.prototype.drawTimeline = function (){
+  var ev = [];
+  var firstYear = 2016;
+  var lastYear = 1000;
+  var numYears = 0;
+  for (var i=0; i<this.currentData.length; i++){
+    var thing = this.currentData[i];
+    if (thing.year){
+      if (thing.year<firstYear){
+        firstYear = thing.year;
+      }
+      if (thing.year>lastYear){
+        lastYear = thing.year;
+      }
+      var item = {
+        id:i,
+        conent:thing.scientificName,
+        start: thing.year + '-01-01'
+      };
+      ev.push(item);
+    }
+  }
+  numYears = lastYear - firstYear;
+  if (numYears>0){
+
+  var container = document.getElementById(this.timelineDiv);
+
+  // Create a DataSet (allows two way data-binding)
+  var items = new vis.DataSet(ev);
+
+  // Configuration for the Timeline
+  var options = {};
+
+  // Create a Timeline
+  var timeline = new vis.Timeline(container, items, options);
+    // $(timelineDiv).jqtimeline({
+    //   events : ev,
+    //   numYears:numYears,
+    //   startYear:firstYear,
+    //   click:function(e,event){
+    //     alert(event.name);
+    //   }
+    //});
+  }
 };
