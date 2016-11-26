@@ -94,7 +94,16 @@ Mapping.prototype.addThingToList = function (thing){
           });
       });
 
-  $(listKey).append( "<li class='list-group-item'> <a href='http://data.nhm.ac.uk/object/"+ thing.occurrenceID + "' target='_blank'>" + thing.scientificName + "</a><button type='button' class='btn btn-primary btn-sm' id=" + thing.nhmid + " value=" + thing.scientificName + " data-toggle='modal' data-target=''#myModal'>Image</button></li>" );
+  $(listKey).append(
+    "<li class='list-group-item'>"+
+      "<a href='http://data.nhm.ac.uk/object/"+ thing.occurrenceID + "' target='_blank'>" + thing.scientificName + "</a>"+
+      "<span style='float:right;'>"+
+        "<button type='button' class='btn-sm' id=" + thing.nhmid + " value=" + thing.scientificName + " data-toggle='modal' data-target=''#myModal'>"+
+          "<span class='glyphicon glyphicon-camera' aria-hidden='true'></span>"+
+        "</button>"+
+      "</span>"+
+    "</li>"
+  );
 };
 
 Mapping.prototype.drawDiscoveries = function (things){
@@ -144,7 +153,13 @@ Mapping.prototype.drawTimeline = function (){
   var items = new vis.DataSet(ev);
 
   // Configuration for the Timeline
-  var options = {};
+  var options = {
+    maxHeight:'250px',
+    timeAxis:{
+      scale:'year',
+      step:5
+    }
+  };
 
   // Create a Timeline
   var timeline = new vis.Timeline(container, items, options);

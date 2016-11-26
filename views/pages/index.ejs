@@ -26,24 +26,22 @@
 
     <% include ../partials/nav.ejs %>
 
-    <div class="row"> <br></div>
-<!--
+    <!-- <div class="row"> <br></div> -->
+
     <div class="row">
-      <div class="col-md-6 col-md-offset-1 well map" id="indexMap"></div>
-      <div class="col-md-3 col-md-offset-1 well" id="indexList">
-        Discoveries
-      </div>
-    </div> -->
+      <div class="col-md-5 col-md-offset-1" style="height:400px;" id="indexMap"></div>
+      <div class="col-md-4 col-md-offset-1" style="height:400px; overflow:auto;" id="indexList"></div>
+    </div>
 
-    <div class="col-md-10 col-md-offset-1 well map" id="indexMap"></div>
+    <!-- <div class="col-md-10 col-md-offset-1 well map" id="indexMap"></div> -->
 
     <div class="row"> <br></div>
 
-    <div id="indexTimeline" class="col-md-10 col-md-offset-1 well"></div>
+    <div id="indexTimeline" class="col-md-10 col-md-offset-1"></div>
 
-    <div class="row"> <br></div>
+    <!-- <div class="row"> <br></div> -->
 
-    <% include ../partials/footer.ejs %>
+    <!-- <% include ../partials/footer.ejs %> -->
     <script>
       var indexMap = new Mapping("indexMap","indexList","indexTimeline");
       indexMap.map.locate({setView: true, maxZoom: 12});
