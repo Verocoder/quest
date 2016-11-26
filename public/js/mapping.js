@@ -61,7 +61,8 @@ Mapping.prototype.showSomethingAtPosition = function (position, title, text){
 
 Mapping.prototype.requestDiscoveries = function(coords){
   //rewrite to use geoboxes once fraz has done API
-  var url = "/geolookup?lat=" + coords.lat + "&long=" + coords.lng + "&distance=5";
+  // var url = "/geolookup?lat=" + coords.lat + "&long=" + coords.lng + "&distance=5";
+  var url = "/geobox?tlLat=" + coords.getNorthWest().lat + "&tlLong=" + coords.getNorthWest().lng + "&brLat=" + coords.getSouthEast().lat + "&brLong=" + coords.getSouthEast().lng;
   var me = this;
   $.ajax({
     dataType: "json",
