@@ -62,9 +62,6 @@ app.get("/imagelookup", function(req, res, next) {
 app.get('/', function(request, response) {
   response.render('pages/index');
 });
-app.get('/timeline', function(request, response) {
-  response.render('pages/timeline');
-});
 app.get('/about', function(request, response) {
   response.render('pages/about');
 });
