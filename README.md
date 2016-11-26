@@ -4,7 +4,7 @@
 Quest is an interactive map/game/thing using open data from the Natural History Museum (NHM)Data Portal.
 
 Things you can do...
-
+(1.0)
   - see youself on a map and the artefacts/collections around you
   - TODO - claim collections and add to your visited places of interest
   -TODO - more cool stuff we haven't written yet
