@@ -8,6 +8,7 @@ module.exports = {
 
 
   getgeobox: function(tllat,tllong,br,bl) {
+    return client.search({
     index: 'geodata4',
     type: 'geodata4',
     body: {
@@ -33,6 +34,7 @@ module.exports = {
               }
           }
       }
+    }
 
 
 
@@ -41,9 +43,7 @@ module.exports = {
 
   });
 
-
-  }
-
+},
   getimage: function(catalognumber) {
     return client.search({
       index: 'imagedata',
