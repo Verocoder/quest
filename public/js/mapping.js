@@ -9,7 +9,11 @@ var Mapping = function (mapDiv, listDiv){
     longitude: -0.09
   };
   this.markers = [];
-  this.markersLayer = new L.LayerGroup();
+  this.markersLayer = new L.FeatureGroup();
+  this.homeIcon = new L.icon({
+    iconUrl: 'http://www.clker.com/cliparts/5/v/V/e/t/J/simple-red-house-md.png',
+     iconSize: [30, 30]
+  });
 
   //setupMethods
   this.drawMap();
@@ -26,8 +30,7 @@ Mapping.prototype.drawMap = function(){
 };
 
 Mapping.prototype.foundGeo = function (latlng, radius) {
-
-  L.marker(latlng).addTo(this.map).bindPopup("You are within " + radius + " meters from this point").openPopup();
+  L.marker(latlng,{draggable:false,title:"You Are Here",icon:this.homeIcon}).addTo(this.map).bindPopup("You are within " + radius + " meters from this point");
   L.circle(latlng, radius).addTo(this.map);
   this.currentCoords = {
     latitude:latlng.lat,
@@ -35,45 +38,16 @@ Mapping.prototype.foundGeo = function (latlng, radius) {
   };
 };
 
-Mapping.prototype.setPosition = function (){
-  // var me = this;
-
-  this.map.locate({setView: true, maxZoom: 15});
-
-  // if (navigator.geolocation) {
-  //   // Get the user's current position
-  //   navigator.geolocation.getCurrentPosition(
-  //     function(position){
-  //       me.coords = position.coords;
-  //       me.moveTo(position.coords);
-  //       me.showSomethingAtPosition(position.coords,"You are here", "You are here");
-  //     },
-  //     function(){
-  //       alert("your browser doesn't support geolocation, defaulting to London");
-  //       this.coords = {
-  //         latitude:51.505,
-  //         longitude: -0.09
-  //       };
-  //     }
-  //   );
-  // } else {
-  //   alert('Geolocation is not supported in your browser');
-  // }
-};
-
 Mapping.prototype.moveTo = function (coords){
   this.map.panTo([coords.latitude,coords.longitude]);
 };
 
 Mapping.prototype.showSomethingAtPosition = function (position, title, text){
-  //L.marker([51.5, -0.09]).addTo(map).bindPopup('manual popup');
-  this.markers.push(L.marker([position.latitude,position.longitude],{draggable:false, title:title}).addTo(this.map).bindPopup(text));
+  this.markersLayer.addLayer(L.marker([position.latitude,position.longitude],{draggable:false, title:title}).bindPopup(text));
 };
 
 
 Mapping.prototype.requestDiscoveries = function(coords){
-  //rewrite to use geoboxes once fraz has done API
-  // var url = "/geolookup?lat=" + coords.lat + "&long=" + coords.lng + "&distance=5";
   var url = "/geobox?tlLat=" + coords.getNorthWest().lat + "&tlLong=" + coords.getNorthWest().lng + "&brLat=" + coords.getSouthEast().lat + "&brLong=" + coords.getSouthEast().lng;
   var me = this;
   $.ajax({
@@ -85,18 +59,14 @@ Mapping.prototype.requestDiscoveries = function(coords){
   });
 };
 Mapping.prototype.clearOut = function (){
-  //this.map.removeLayer(this.markersLayer)
   var listKey = "#"+this.listDiv;
   $(listKey).empty();
-  for (var m; m<this.markers.length;m++){
-    this.map.removeLayer(this.markers[m]);
-  }
-  console.log(this.markers);
+  this.map.removeLayer(this.markersLayer);
   this.currentData = [];
+  this.markersLayer = new L.FeatureGroup();
 };
 
 Mapping.prototype.addThingToList = function (thing){
-  // write a jquery call to get the div with the list in and fill it with info
   var listKey = "#"+this.listDiv;
   $(listKey).append( "<li class='list-group-item'> <a href='http://data.nhm.ac.uk/object/"+ thing.occurrenceID + "' target='_blank'>" + thing.scientificName + "</a></li>" );
 };
@@ -113,5 +83,6 @@ Mapping.prototype.drawDiscoveries = function (things){
     this.showSomethingAtPosition({latitude:thing.location.lat,longitude:thing.location.lon},thing.scientificName, text);
     this.addThingToList(thing);
   }
+  this.markersLayer.addTo(this.map);
   $(listKey).append("</ul>");
 };
