@@ -5,6 +5,45 @@ var client = new elasticsearch.Client({
 });
 module.exports = {
 
+
+
+  getgeobox: function(tllat,tllong,br,bl) {
+    index: 'geodata4',
+    type: 'geodata4',
+    body: {
+
+      "query": {
+          "bool" : {
+              "must" : {
+                  "match_all" : {}
+              },
+              "filter" : {
+                  "geo_bounding_box" : {
+                      "pin.location" : {
+                          "top_left" : {
+                              "lat" : tllat,
+                              "lon" : tllong
+                          },
+                          "bottom_right" : {
+                              "lat" : brlat,
+                              "lon" : brlong
+                          }
+                      }
+                  }
+              }
+          }
+      }
+
+
+
+
+
+
+  });
+
+
+  }
+
   getimage: function(catalognumber) {
     return client.search({
       index: 'imagedata',

@@ -41,6 +41,21 @@ app.get("/geolookup", function(req, res, next) {
 
 
 });
+app.get("/geobox", function(req, res, next) {
+  var tllat = req.params.tlLat;
+  var tllong = req.params.tlLong;
+  var brlat = req.params.brLat;
+  var brlong = req.params.brLong;
+
+  //var hits = es.search(lat, long, distance, res);
+
+  es.getimage(tllat, tllong, brlat, brlong).then(function (result) {
+
+    res.json(result.hits.hits) });
+
+
+
+});
 
 app.get("/imagelookup", function(req, res, next) {
   var catalognumber = req.param('catalognumber');
