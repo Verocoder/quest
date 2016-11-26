@@ -10,17 +10,15 @@
     <% include ../partials/nav.ejs %>
 
     <div class="row"> <br></div>
-
-    <div id="indexTimeline" class="col-md-10 col-md-offset-1 well"></div>
-
-    <div class="row"> <br></div>
-
+<!--
     <div class="row">
       <div class="col-md-6 col-md-offset-1 well map" id="indexMap"></div>
       <div class="col-md-3 col-md-offset-1 well" id="indexList">
         Discoveries
       </div>
-    </div>
+    </div> -->
+
+    <div class="col-md-10 col-md-offset-1 well map" id="indexMap"></div>
 
     <div class="row"> <br></div>
 
@@ -31,7 +29,7 @@
     <% include ../partials/footer.ejs %>
     <script>
       var indexMap = new Mapping("indexMap","indexList","indexTimeline");
-      indexMap.map.locate({setView: true, maxZoom: 15});
+      indexMap.map.locate({setView: true, maxZoom: 12});
       function onMapMove(e) {
         indexMap.requestDiscoveries(indexMap.map.getBounds());
         //indexMap.map.getBounds()
@@ -43,7 +41,6 @@
         var latlng = e.latlng;
         indexMap.foundGeo(latlng,radius);
       }
-
       //listeners
       indexMap.map.on('moveend', onMapMove);
       indexMap.map.on('locationfound', onLocationFound);

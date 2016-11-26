@@ -15,11 +15,7 @@ var Mapping = function (mapDiv, listDiv, timelineDiv){
     iconUrl: 'http://www.clker.com/cliparts/5/v/V/e/t/J/simple-red-house-md.png',
      iconSize: [30, 30]
   });
-
-  //setupMethods
   this.drawMap();
-  //this.setPosition();
-
 };
 
 
@@ -77,7 +73,6 @@ Mapping.prototype.addThingToList = function (thing){
 Mapping.prototype.drawDiscoveries = function (things){
   this.clearOut();
   var listKey = "#"+this.listDiv;
-  $(listKey).append( "Discoveries" );
   $(listKey).append( "<ul class='list-group'>" );
   for (var i=0; i<things.length;i++){
     var thing = things[i]._source;
@@ -107,7 +102,7 @@ Mapping.prototype.drawTimeline = function (){
       }
       var item = {
         id:i,
-        conent:thing.scientificName,
+        content:thing.scientificName,
         start: thing.year + '-01-01'
       };
       ev.push(item);
