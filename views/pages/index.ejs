@@ -11,20 +11,20 @@
 
     <h1 class="text-center"> Quest <small>with the Natural History Museum</small> </h1>
 
-
-
+    <div class="row"> <br></div>
 
     <div class="row">
-      <div class="col-md-8 col-md-offset-1 well map" id="nickyMap"></div>
-      <div class="col-md-1 col-md-offset-1 well">
+      <div class="col-md-6 col-md-offset-1 well map" id="nickyMap"></div>
+      <div class="col-md-3 col-md-offset-1 well" id="nickyList">
+        Discoveries
       </div>
     </div>
 
     <div class="row"> <br></div>
 
-    <div id="nickyList" class="col-md-10 col-md-offset-1 well">
+    <!-- <div id="nickyList" class="col-md-10 col-md-offset-1 well">
       Discoveries
-    </div>
+    </div> -->
 
     <div class="row"> <br></div>
 
@@ -32,12 +32,20 @@
     <script>
       var nickyMap = new Mapping("nickyMap","nickyList");
       function onMapMove(e) {
-        nickyMap.requestDiscoveries(nickyMap.map.getCenter());
+        nickyMap.requestDiscoveries(nickyMap.map.getBounds());
         //nickyMap.map.getBounds()
+        //getCenter
         // method to get the box for more useful API lookups
       };
+      function onLocationFound(e) {
+        var radius = e.accuracy / 2;
+        var latlng = e.latlng;
+        nickyMap.foundGeo(latlng,radius);
+      }
+
       //listeners
       nickyMap.map.on('moveend', onMapMove);
+      nickyMap.map.on('locationfound', onLocationFound);
     </script>
 
   </body>
