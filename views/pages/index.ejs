@@ -14,15 +14,15 @@
     <div class="row"> <br></div>
 
     <div class="row">
-      <div class="col-md-6 col-md-offset-1 well map" id="nickyMap"></div>
-      <div class="col-md-3 col-md-offset-1 well" id="nickyList">
+      <div class="col-md-6 col-md-offset-1 well map" id="indexMap"></div>
+      <div class="col-md-3 col-md-offset-1 well" id="indexList">
         Discoveries
       </div>
     </div>
 
     <div class="row"> <br></div>
 
-    <!-- <div id="nickyList" class="col-md-10 col-md-offset-1 well">
+    <!-- <div id="indexList" class="col-md-10 col-md-offset-1 well">
       Discoveries
     </div> -->
 
@@ -30,23 +30,23 @@
 
     <% include ../partials/footer.ejs %>
     <script>
-      var nickyMap = new Mapping("nickyMap","nickyList");
-      nickyMap.map.locate({setView: true, maxZoom: 15});
+      var indexMap = new Mapping("indexMap","indexList");
+      indexMap.map.locate({setView: true, maxZoom: 15});
       function onMapMove(e) {
-        nickyMap.requestDiscoveries(nickyMap.map.getBounds());
-        //nickyMap.map.getBounds()
+        indexMap.requestDiscoveries(indexMap.map.getBounds());
+        //indexMap.map.getBounds()
         //getCenter
         // method to get the box for more useful API lookups
       };
       function onLocationFound(e) {
         var radius = e.accuracy / 2;
         var latlng = e.latlng;
-        nickyMap.foundGeo(latlng,radius);
+        indexMap.foundGeo(latlng,radius);
       }
 
       //listeners
-      nickyMap.map.on('moveend', onMapMove);
-      nickyMap.map.on('locationfound', onLocationFound);
+      indexMap.map.on('moveend', onMapMove);
+      indexMap.map.on('locationfound', onLocationFound);
     </script>
 
   </body>
