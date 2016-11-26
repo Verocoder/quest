@@ -12,10 +12,8 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.get('/', function(request, response) {
-  response.render('pages/index');
-});
 
+//rest endpoints
 app.get("/geolookup", function(req, res, next) {
   var lat = req.param('lat');
   var long = req.param('long');
@@ -36,12 +34,8 @@ app.get("/geolookup", function(req, res, next) {
 //console.log(data);
     res.json(result.hits.hits);
   });
-
-
-
-
-
 });
+
 app.get("/geobox", function(req, res, next) {
   var tllat = req.param('tlLat');
   var tllong = req.param('tlLong');
@@ -53,9 +47,6 @@ app.get("/geobox", function(req, res, next) {
   es.getgeobox(tllat, tllong, brlat, brlong).then(function (result) {
     res.json(result.hits.hits);
    });
-
-
-
 });
 
 app.get("/imagelookup", function(req, res, next) {
@@ -66,6 +57,11 @@ app.get("/imagelookup", function(req, res, next) {
   });
 });
 
+
+//pages
+app.get('/', function(request, response) {
+  response.render('pages/index');
+});
 app.get('/about', function(request, response) {
   response.render('pages/about');
 });

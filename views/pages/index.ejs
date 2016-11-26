@@ -10,7 +10,7 @@
     <% include ../partials/nav.ejs %>
 
     <h1 class="text-center"> Quest <small>with the Natural History Museum</small> </h1>
-    
+
     <div class="row"> <br></div>
 
     <div class="row">
@@ -37,8 +37,15 @@
         //getCenter
         // method to get the box for more useful API lookups
       };
+      function onLocationFound(e) {
+        var radius = e.accuracy / 2;
+        var latlng = e.latlng;
+        nickyMap.foundGeo(latlng,radius);
+      }
+
       //listeners
       nickyMap.map.on('moveend', onMapMove);
+      nickyMap.map.on('locationfound', onLocationFound);
     </script>
 
   </body>

@@ -25,28 +25,40 @@ Mapping.prototype.drawMap = function(){
   }).addTo(this.map);
 };
 
+Mapping.prototype.foundGeo = function (latlng, radius) {
+
+  L.marker(latlng).addTo(this.map).bindPopup("You are within " + radius + " meters from this point").openPopup();
+  L.circle(latlng, radius).addTo(this.map);
+  this.currentCoords = {
+    latitude:latlng.lat,
+    longitude: latlng.lng
+  };
+};
 
 Mapping.prototype.setPosition = function (){
-  var me = this;
-  if (navigator.geolocation) {
-    // Get the user's current position
-    navigator.geolocation.getCurrentPosition(
-      function(position){
-        me.coords = position.coords;
-        me.moveTo(position.coords);
-        me.showSomethingAtPosition(position.coords,"You are here", "You are here");
-      },
-      function(){
-        alert("your browser doesn't support geolocation, defaulting to London");
-        this.coords = {
-          latitude:51.505,
-          longitude: -0.09
-        };
-      }
-    );
-  } else {
-    alert('Geolocation is not supported in your browser');
-  }
+  // var me = this;
+
+  this.map.locate({setView: true, maxZoom: 15});
+
+  // if (navigator.geolocation) {
+  //   // Get the user's current position
+  //   navigator.geolocation.getCurrentPosition(
+  //     function(position){
+  //       me.coords = position.coords;
+  //       me.moveTo(position.coords);
+  //       me.showSomethingAtPosition(position.coords,"You are here", "You are here");
+  //     },
+  //     function(){
+  //       alert("your browser doesn't support geolocation, defaulting to London");
+  //       this.coords = {
+  //         latitude:51.505,
+  //         longitude: -0.09
+  //       };
+  //     }
+  //   );
+  // } else {
+  //   alert('Geolocation is not supported in your browser');
+  // }
 };
 
 Mapping.prototype.moveTo = function (coords){
