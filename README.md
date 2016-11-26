@@ -30,6 +30,7 @@ We've used a number of cool things...:
 * [Heroku] - Cloud computing babeh!
 * [jQuery] - Naturally!
 * [leaflet.js] - Holy mapping javascript, Batman!
+* [vis.js] - timeline
 
 
 ### Routes and APIs
@@ -84,4 +85,5 @@ Apache
    [express]: <http://expressjs.com>
    [AngularJS]: <http://angularjs.org>
    [leaflet.js]: <http://leafletjs.com>
+   [vis.js]: <http://visjs.com>
 [Heroku]: <http://heroku.com>
