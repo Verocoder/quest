@@ -49,7 +49,7 @@ app.get("/geobox", function(req, res, next) {
 
   //var hits = es.search(lat, long, distance, res);
 
-  es.getimage(tllat, tllong, brlat, brlong).then(function (result) {
+  es.getgeobox(tllat, tllong, brlat, brlong).then(function (result) {
 
     res.json(result.hits.hits) });
 
