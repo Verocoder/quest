@@ -1,7 +1,7 @@
 var elasticsearch = require('elasticsearch');
 var client = new elasticsearch.Client({
   host: 'https://vero:pipipipi@2f1718a2a36909336e20e24a9e663c7a.us-east-1.aws.found.io:9243',
-  log: 'trace'
+  //log: 'trace'
 });
 module.exports = {
 
@@ -13,7 +13,7 @@ module.exports = {
     type: 'geodata4',
     body: {
       "_source": ["location", "genus", "scientificName", "year", "nhmid", 'catalogNumber', 'recordedBy', 'dynamicProperties', 'occurrenceID', 'nhmid'],
-       
+
       "query": {
           "bool" : {
               "must" : {

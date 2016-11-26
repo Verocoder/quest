@@ -31,6 +31,7 @@
     <% include ../partials/footer.ejs %>
     <script>
       var nickyMap = new Mapping("nickyMap","nickyList");
+      nickyMap.map.locate({setView: true, maxZoom: 15});
       function onMapMove(e) {
         nickyMap.requestDiscoveries(nickyMap.map.getBounds());
         //nickyMap.map.getBounds()

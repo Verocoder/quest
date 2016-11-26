@@ -13,7 +13,7 @@ var Mapping = function (mapDiv, listDiv){
 
   //setupMethods
   this.drawMap();
-  this.setPosition();
+  //this.setPosition();
 
 };
 
