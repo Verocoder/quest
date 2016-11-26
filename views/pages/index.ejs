@@ -22,13 +22,8 @@
 
     <div class="row"> <br></div>
 
-    <div id="nickyList" class="row">
-      <div class="col-md-10 col-md-offset-1 well">Discoveries
-        <ul>
-          <li> Butterfly </li>
-          <li> Moth </li>
-        </ul>
-      </div>
+    <div id="nickyList" class="col-md-10 col-md-offset-1 well">
+      Discoveries
     </div>
 
     <div class="row"> <br></div>
@@ -38,6 +33,8 @@
       var nickyMap = new Mapping("nickyMap","nickyList");
       function onMapMove(e) {
         nickyMap.requestDiscoveries(nickyMap.map.getCenter());
+        //nickyMap.map.getBounds()
+        // method to get the box for more useful API lookups
       };
       //listeners
       nickyMap.map.on('moveend', onMapMove);
