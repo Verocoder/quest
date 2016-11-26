@@ -1,13 +1,13 @@
 var elasticsearch = require('elasticsearch');
 var client = new elasticsearch.Client({
   host: 'https://vero:pipipipi@2f1718a2a36909336e20e24a9e663c7a.us-east-1.aws.found.io:9243',
-  //log: 'trace'
+  log: 'trace'
 });
 module.exports = {
 
 
 
-  getgeobox: function(tllat,tllong,br,bl) {
+  getgeobox: function(tllat,tllong,brlat,brlong) {
     return client.search({
     index: 'geodata4',
     type: 'geodata4',
@@ -20,7 +20,7 @@ module.exports = {
               },
               "filter" : {
                   "geo_bounding_box" : {
-                      "pin.location" : {
+                      "location" : {
                           "top_left" : {
                               "lat" : tllat,
                               "lon" : tllong
