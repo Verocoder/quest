@@ -95,10 +95,37 @@ Mapping.prototype.clearOut = function (){
   this.currentData = [];
 };
 
+
+
+
 Mapping.prototype.addThingToList = function (thing){
   // write a jquery call to get the div with the list in and fill it with info
   var listKey = "#"+this.listDiv;
-  $(listKey).append( "<li class='list-group-item'> <a href='http://data.nhm.ac.uk/object/"+ thing.occurrenceID + "' target='_blank'>" + thing.scientificName + "</a></li>" );
+  $("button").button().unbind().click(function(){
+          var name = this.value;
+          var url = "/imagelookup?catalognumber="+this.id;
+          var me = this;
+          $.ajax({
+            dataType: "json",
+            url: url,
+            success: function(response){
+              var link = response + "thumbnail";
+                //alert(response + "thumbnail");
+
+
+
+  // here asign the image to the modal when the user click the enlarge link
+     $('#imagemodal').modal('show');
+     $("#imagepreview").attr("src",link)
+     document.getElementById("myModalLabel").innerHTML = name;
+
+
+
+            }
+          });
+      });
+
+  $(listKey).append( "<li class='list-group-item'> <a href='http://data.nhm.ac.uk/object/"+ thing.occurrenceID + "' target='_blank'>" + thing.scientificName + "</a><button type='button' class='btn btn-primary btn-sm' id=" + thing.nhmid + " value=" + thing.scientificName + " data-toggle='modal' data-target=''#myModal'>Image</button></li>" );
 };
 
 Mapping.prototype.drawDiscoveries = function (things){
