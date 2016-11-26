@@ -34,7 +34,8 @@ app.get("/geolookup", function(req, res, next) {
 
 //});
 //console.log(data);
-    res.json(result.hits.hits) });
+    res.json(result.hits.hits);
+  });
 
 
 
@@ -50,8 +51,8 @@ app.get("/geobox", function(req, res, next) {
   //var hits = es.search(lat, long, distance, res);
 
   es.getgeobox(tllat, tllong, brlat, brlong).then(function (result) {
-
-    res.json(result.hits.hits) });
+    res.json(result.hits.hits);
+   });
 
 
 
@@ -60,36 +61,14 @@ app.get("/geobox", function(req, res, next) {
 app.get("/imagelookup", function(req, res, next) {
   var catalognumber = req.param('catalognumber');
   //var hits = es.search(lat, long, distance, res);
-
   es.getimage(catalognumber).then(function (result) {
-  //  for (var i = 0, len = result.hits.hits.length; i < len; i++) {
-  //    data.add(result.hits.hits[i].result.source);
-//  someFn(arr[i]);
-//}
-
-//result.hits.hits.forEach(function(entry) {
-//data.add(entry.source)
-
-//});
-//console.log(data);
-    res.json(result.hits.hits[0]._source.identifier) });
-
-
-
-
-
+    res.json(result.hits.hits[0]._source.identifier);
+  });
 });
 
-app.get('/nicky', function(request, response) {
-  response.render('pages/nicky');
+app.get('/about', function(request, response) {
+  response.render('pages/about');
 });
-
-app.get('/david', function(request, response) {
-  response.render('pages/david');
-});
-//app.get('/nicky', function(request, response) {
-//  response.render('pages/nicky');
-//});
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
