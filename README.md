@@ -1,6 +1,5 @@
 # Quest
 
-1.0
 Quest is an interactive map/game/thing using open data from the Natural History Museum (NHM)Data Portal.
 
 Things you can do...
