@@ -13,7 +13,7 @@ module.exports = {
     type: 'geodata4',
     body: {
       "_source": ["location", "genus", "scientificName", "year", "nhmid", 'catalogNumber', 'recordedBy', 'dynamicProperties', 'occurrenceID', 'nhmid'],
-
+  "size" : 50,
       "query": {
           "bool" : {
               "must" : {
